@@ -18,13 +18,8 @@ public class HistoryActivity extends BaseActivity {
     }
 
     @Override
-    Integer getMenu() {
+    protected Integer getMenu() {
         return R.menu.menu_history;
-    }
-
-    @Override
-    boolean showBackButton() {
-        return false;
     }
 
     @Override

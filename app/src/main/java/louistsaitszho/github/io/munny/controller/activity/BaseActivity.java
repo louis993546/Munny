@@ -26,6 +26,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
+    /**
+     * Enable back button if requested
+     * Why not in onCreate: because I need to wait for each activity setSupportActionBar first
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -51,20 +55,24 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * Return
+     * Tell BaseActivity how to inflate the view
      * @return R.layout.(something)
      */
     abstract int getLayout();
 
     /**
-     * Return a non-null value to initiate the menu
-     * @return R.menu.(something)
+     * Tell BaseActivity does it need to inflate menu and how
+     * @return R.menu.(something) or null(which is the default)
      */
-    abstract Integer getMenu();
+    protected Integer getMenu(){
+        return null;
+    }
 
     /**
-     *
-     * @return
+     * Tell BaseActivity do you want to show the back button on toolbar. Default is false
+     * @return true if show, false if not
      */
-    abstract boolean showBackButton();
+    protected boolean showBackButton() {
+        return false;
+    }
 }
