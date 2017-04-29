@@ -1,7 +1,9 @@
-package louistsaitszho.github.io.munny;
+package louistsaitszho.github.io.munny.controller;
 
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+
+import louistsaitszho.github.io.munny.SimpleIntegerListener;
 
 /**
  * Listen to page change so that i can animate the fab accordingly

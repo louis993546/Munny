@@ -3,8 +3,11 @@ package louistsaitszho.github.io.munny.model;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import louistsaitszho.github.io.munny.model.pojo.Game;
+import louistsaitszho.github.io.munny.model.pojo.Player;
 
 /**
+ * TODO check if singleton is a good thing on android
+ * TODO remember to destory realm
  * A singleton class that handles all data storage
  * Right now they will be completely Realm-base
  * Created by Louis on 20/4/2017.
@@ -17,9 +20,33 @@ public class DataHolder {
     }
 
     /**
-     * TODO sorting
+     *
+     * @return
      */
     public RealmResults<Game> getAllGames() {
         return realm.where(Game.class).findAllSorted("startTime");
+    }
+
+    /**
+     * Get the list of players for
+     * - EditText suggestions
+     * - [Future] Statistics
+     * @return
+     */
+    public RealmResults<Player> getAllPlayers() {
+        return realm.where(Player.class).findAllSorted("name");
+    }
+
+    /**
+     * Create new game
+     * @param newGame: make sure it contains
+     */
+    public void newGame(final Game newGame) {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.insert(newGame);
+            }
+        });
     }
 }

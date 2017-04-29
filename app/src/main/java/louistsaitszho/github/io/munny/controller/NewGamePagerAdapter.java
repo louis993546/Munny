@@ -1,4 +1,4 @@
-package louistsaitszho.github.io.munny;
+package louistsaitszho.github.io.munny.controller;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

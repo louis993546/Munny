@@ -1,6 +1,7 @@
 package louistsaitszho.github.io.munny.controller.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -12,14 +13,16 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
-import android.widget.Toast;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import louistsaitszho.github.io.munny.NewGamePageChangeListener;
-import louistsaitszho.github.io.munny.NewGamePagerAdapter;
 import louistsaitszho.github.io.munny.R;
 import louistsaitszho.github.io.munny.SimpleIntegerListener;
+import louistsaitszho.github.io.munny.controller.NewGamePageChangeListener;
+import louistsaitszho.github.io.munny.controller.NewGamePagerAdapter;
 
 public class NewGameActivity extends BaseActivity {
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -74,18 +77,40 @@ public class NewGameActivity extends BaseActivity {
             case R.id.action_settings:
                 return true;
             case android.R.id.home:
-                Toast.makeText(NewGameActivity.this, "backing", Toast.LENGTH_SHORT).show();
+                dialogBeforeDismiss();
+                //No break; intentionally
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    /**
-     * TODO dialog when press
-     */
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        dialogBeforeDismiss();
+    }
+
+    private void dialogBeforeDismiss() {
+        new MaterialDialog
+                .Builder(NewGameActivity.this)
+                .title("Abort?")
+                .content("Are you sure you want to leave?")
+                .positiveText("Yes")
+                .negativeText("No")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                        NewGameActivity.this.finish();
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .canceledOnTouchOutside(true)
+                .show();
     }
 
     @OnClick(R.id.fab)
@@ -94,9 +119,9 @@ public class NewGameActivity extends BaseActivity {
             case 0:
             case 1:
             case 2:
-                viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+                viewPager.setCurrentItem(viewPager.getCurrentItem()+1);                             //next page
                 break;
-            case 3:
+            case 3:                                                                                 //start GameActivity iff everything is valid
                 Snackbar.make(view, "Start a new game", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .show();
@@ -111,7 +136,7 @@ public class NewGameActivity extends BaseActivity {
      * @param newPosition page it's going to
      */
     protected void animateFab(int oldPosition, final int newPosition) {
-        if (iconIntArray[oldPosition] != iconIntArray[newPosition]) {   //Change FAB iff the 2 icons are different
+        if (iconIntArray[oldPosition] != iconIntArray[newPosition]) {                               //Change FAB iff the 2 icons are different
             fab.clearAnimation();
             ScaleAnimation shrink = new ScaleAnimation(1f, 0.2f, 1f, 0.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             shrink.setDuration(150);

@@ -1,5 +1,6 @@
 package louistsaitszho.github.io.munny.model.pojo;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.UUID;
@@ -34,9 +35,7 @@ public class Game extends RealmObject {
         this();
         this.bankTotal = bankTotal;
         this.players = new RealmList<>();
-        for (Player p:players) {
-            this.players.add(p);
-        }
+        Collections.addAll(this.players, players);
     }
 
     public RealmList<Photo> getPhotos() {
