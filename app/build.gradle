@@ -16,12 +16,14 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            //TODO how to do keystore properly
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            applicationIdSuffix '.staging'
-            versionNameSuffix 's'
+            applicationIdSuffix '.debug'
+            versionNameSuffix 'd'
         }
     }
 }
@@ -45,4 +47,7 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     compile 'com.afollestad.material-dialogs:core:0.9.4.4'
+    compile('com.mikepenz:aboutlibraries:5.9.5@aar') {
+        transitive = true
+    }
 }

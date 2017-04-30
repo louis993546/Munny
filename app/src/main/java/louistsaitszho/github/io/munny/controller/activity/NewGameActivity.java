@@ -60,8 +60,8 @@ public class NewGameActivity extends BaseActivity {
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new NewGamePageChangeListener(new SimpleIntegerListener() {
             @Override
-            public void onResponse(int... results) {
-                animateFab(results[0], results[1]);
+            public void callback(int... args) {
+                animateFab(args[0], args[1]);
             }
         }));
     }
@@ -78,7 +78,7 @@ public class NewGameActivity extends BaseActivity {
                 return true;
             case android.R.id.home:
                 dialogBeforeDismiss();
-                //No break; intentionally
+                //No break intentionally
             default:
                 return super.onOptionsItemSelected(item);
         }

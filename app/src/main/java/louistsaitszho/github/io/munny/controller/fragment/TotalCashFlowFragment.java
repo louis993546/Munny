@@ -1,9 +1,8 @@
 package louistsaitszho.github.io.munny.controller.fragment;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.ViewGroup;
 
 import louistsaitszho.github.io.munny.R;
 
@@ -12,12 +11,13 @@ import louistsaitszho.github.io.munny.R;
  */
 public class TotalCashFlowFragment extends BaseFragment {
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+    int getLayout() {
+        return R.layout.fragment_total_cash_flow;
     }
 
     @Override
-    int getLayout() {
-        return R.layout.fragment_total_cash_flow;
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //TODO
     }
 }

@@ -27,7 +27,7 @@ public class NewGamePageChangeListener implements ViewPager.OnPageChangeListener
     public void onPageSelected(int position) {
         Log.d("qqq", "onPageSelected: " + position);
         newPosition = position;
-        listener.onResponse(oldPosition, newPosition);
+        listener.callback(oldPosition, newPosition);
         oldPosition = newPosition;
         newPosition = -1;       //reset back to unknown
     }

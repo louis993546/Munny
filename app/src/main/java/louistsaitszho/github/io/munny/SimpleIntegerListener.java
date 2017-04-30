@@ -5,5 +5,5 @@ package louistsaitszho.github.io.munny;
  */
 
 public interface SimpleIntegerListener {
-    void onResponse(int... results);
+    void callback(int... args);
 }

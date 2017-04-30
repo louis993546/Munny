@@ -15,7 +15,6 @@ import louistsaitszho.github.io.munny.R;
 import louistsaitszho.github.io.munny.model.pojo.Game;
 
 /**
- * TODO check out realm recycler view adapter?
  * Created by Louis on 20/4/2017.
  */
 public class GameHistoryAdapter extends RecyclerView.Adapter<GameHistoryAdapter.GamesViewHolder> {

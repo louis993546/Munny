@@ -12,11 +12,14 @@ import butterknife.ButterKnife;
  * Every fragment should extend this
  * Roles:
  * - ButterKnife.bind
+ *
+ * Where should i put all the codes?
+ * > onViewCreated
  */
 public abstract class BaseFragment extends Fragment {
 
     /**
-     * Override this to
+     * ButterKnife bind views
      * @param inflater
      * @param container
      * @param savedInstanceState
