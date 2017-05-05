@@ -20,7 +20,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import butterknife.BindView;
 import butterknife.OnClick;
 import louistsaitszho.github.io.munny.R;
-import louistsaitszho.github.io.munny.SimpleIntegerListener;
+import louistsaitszho.github.io.munny.controller.listener.SimpleIntegerListener;
 import louistsaitszho.github.io.munny.controller.NewGamePageChangeListener;
 import louistsaitszho.github.io.munny.controller.NewGamePagerAdapter;
 

@@ -31,8 +31,8 @@ public abstract class BaseActivity extends AppCompatActivity {
      * Why not in onCreate: because I need to wait for each activity setSupportActionBar first
      */
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         if (showBackButton() && getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);

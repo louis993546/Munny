@@ -6,14 +6,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import louistsaitszho.github.io.munny.FABReactionListener;
+import louistsaitszho.github.io.munny.controller.listener.FABReactionListener;
 import louistsaitszho.github.io.munny.R;
 
 public class HistoryActivity extends BaseActivity implements FABReactionListener{
@@ -46,7 +45,8 @@ public class HistoryActivity extends BaseActivity implements FABReactionListener
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Toast.makeText(HistoryActivity.this, "TODO: setting", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HistoryActivity.this, SettingsActivity.class);
+                startActivity(intent);
                 break;
             case R.id.action_about:
                 new LibsBuilder()
