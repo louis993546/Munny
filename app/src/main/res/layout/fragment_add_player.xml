@@ -1,13 +1,40 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="louistsaitszho.github.io.munny.controller.fragment.AddPlayerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <AutoCompleteTextView
+        android:id="@+id/edit_text_player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/image_view_plus_button"
+        android:layout_toStartOf="@id/image_view_plus_button"
+        android:inputType="textPersonName"
+        android:imeOptions="actionSend"
+        android:completionThreshold="1"/>
+
+    <ImageView
+        android:id="@id/image_view_plus_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_person_add_black_24dp"
+        android:layout_alignTop="@id/edit_text_player"
+        android:layout_alignBottom="@id/edit_text_player"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:padding="8dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_players"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_below="@id/edit_text_player"
+        tools:listitem="@layout/item_a_player"/>
 
-</FrameLayout>
+</RelativeLayout>

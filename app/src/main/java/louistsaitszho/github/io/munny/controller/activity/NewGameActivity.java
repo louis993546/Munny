@@ -21,8 +21,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import louistsaitszho.github.io.munny.R;
 import louistsaitszho.github.io.munny.controller.listener.SimpleIntegerListener;
-import louistsaitszho.github.io.munny.controller.NewGamePageChangeListener;
-import louistsaitszho.github.io.munny.controller.NewGamePagerAdapter;
+import louistsaitszho.github.io.munny.controller.listener.NewGamePageChangeListener;
+import louistsaitszho.github.io.munny.controller.adapter.NewGamePagerAdapter;
 
 public class NewGameActivity extends BaseActivity {
     @BindView(R.id.toolbar) Toolbar toolbar;

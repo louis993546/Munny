@@ -1,4 +1,4 @@
-package louistsaitszho.github.io.munny.controller;
+package louistsaitszho.github.io.munny.controller.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

@@ -7,4 +7,6 @@
     android:layout_height="match_parent"
     tools:context="louistsaitszho.github.io.munny.controller.fragment.HistoryFragment"
     tools:showIn="@layout/activity_history"
-    tools:listitem="@layout/item_game_history"/>
+    tools:listitem="@layout/item_game_history"
+    android:padding="8dp"
+    android:clipToPadding="false"/>

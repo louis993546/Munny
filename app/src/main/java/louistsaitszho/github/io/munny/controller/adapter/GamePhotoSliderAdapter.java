@@ -1,4 +1,4 @@
-package louistsaitszho.github.io.munny.controller;
+package louistsaitszho.github.io.munny.controller.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -23,6 +23,11 @@ public class GamePhotoSliderAdapter extends PagerAdapter {
 
     @BindView(R.id.a_photo_iv) ImageView aPhoto;
 
+    /**
+     *
+     * @param context
+     * @param photos
+     */
     public GamePhotoSliderAdapter(Context context, List<Photo> photos) {
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.photos = photos;

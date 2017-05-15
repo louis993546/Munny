@@ -3,6 +3,7 @@ package louistsaitszho.github.io.munny.model;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.OrderedCollectionChangeSet;
@@ -27,39 +28,48 @@ import louistsaitszho.github.io.munny.model.pojo.Player;
  * Created by Louis on 20/4/2017.
  */
 public class DataHolder {
-    Realm realm;
+    private Realm realm;
+    /**
+     * This object is to make sure even when GC the object will not be destroy, by holding on to each of them as a reference
+     */
+    private List references = new ArrayList();
 
     public DataHolder() {
         realm = Realm.getDefaultInstance();
     }
 
     /**
-     *
-     * @param callback
+     * Get the whole list of Games, sorted by startTime
+     * TODO check if should be ascending or defending
+     * @param callback is what it is. Just listen to it and react accordingly
      */
     public void getAllGames(@NonNull final OnDataReadyListener<List<Game>> callback) {
-        realm.where(Game.class).findAllSortedAsync("startTime").addChangeListener(new OrderedRealmCollectionChangeListener<RealmResults<Game>>() {
+        RealmResults<Game> reference = realm.where(Game.class).findAllSortedAsync("startTime");
+        reference.addChangeListener(new OrderedRealmCollectionChangeListener<RealmResults<Game>>() {
             @Override
             public void onChange(RealmResults<Game> collection, OrderedCollectionChangeSet changeSet) {
                 callback.callback(collection);
             }
         });
+        references.add(reference);
     }
 
     /**
      * Get the list of players for
      * - EditText suggestions
      * - [Future] Statistics
-     *
-     * @param callback contains the list of results
+
+     * @param callback
      */
     public void getAllPlayers(@NonNull final OnDataReadyListener<List<Player>> callback) {
-        realm.where(Player.class).findAllSortedAsync("name").addChangeListener(new OrderedRealmCollectionChangeListener<RealmResults<Player>>() {
+        RealmResults<Player> reference = realm.where(Player.class).findAllSortedAsync("name");
+        reference.addChangeListener(new OrderedRealmCollectionChangeListener<RealmResults<Player>>() {
             @Override
             public void onChange(RealmResults<Player> collection, OrderedCollectionChangeSet changeSet) {
                 callback.callback(collection);
             }
         });
+        references.add(reference);
     }
 
     /**
@@ -69,7 +79,7 @@ public class DataHolder {
      * @param onError   is a nullable callback when something goes wrong
      */
     public void newGame(@NonNull final Game newGame, @Nullable final SimpleListener onSuccess, @Nullable final ErrorListener onError) {
-        realm.executeTransactionAsync(new Realm.Transaction() {
+        references.add(realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 realm.insert(newGame);
@@ -86,13 +96,21 @@ public class DataHolder {
                 if (onError != null)
                     onError.error(error);
             }
-        });
+        }));
     }
 
     /**
-     * To close realm. This needs to be done per view.
+     * 1) close realm
+     * 2) clear all references -> make them available for GC
+     *
+     * This needs a must for every DataHolder object
+     *
+     * @return true if nothing goes wrong
      */
-    public void close() {
+    public boolean close() {
         realm.close();
+        references.clear();
+        references = null;
+        return true;
     }
 }

@@ -2,19 +2,23 @@ package louistsaitszho.github.io.munny.controller.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.thedeanda.lorem.Lorem;
+import com.thedeanda.lorem.LoremIpsum;
+
 import java.util.List;
 
 import butterknife.BindView;
+import louistsaitszho.github.io.munny.R;
+import louistsaitszho.github.io.munny.controller.adapter.GameHistoryAdapter;
 import louistsaitszho.github.io.munny.controller.listener.FABReactionListener;
 import louistsaitszho.github.io.munny.controller.listener.SimpleListener;
-import louistsaitszho.github.io.munny.model.OnDataReadyListener;
-import louistsaitszho.github.io.munny.R;
-import louistsaitszho.github.io.munny.controller.GameHistoryAdapter;
 import louistsaitszho.github.io.munny.model.DataHolder;
+import louistsaitszho.github.io.munny.model.OnDataReadyListener;
 import louistsaitszho.github.io.munny.model.pojo.Game;
 import louistsaitszho.github.io.munny.model.pojo.Player;
 
@@ -24,7 +28,10 @@ import louistsaitszho.github.io.munny.model.pojo.Player;
  * TODO progress bar when loading the data
  */
 public class HistoryFragment extends BaseFragment {
+    public final static String TAG = HistoryFragment.class.getSimpleName();
+
     @BindView(R.id.recycler_view_games) RecyclerView gamesRV;
+
     DataHolder dataHolder;
 
     @Override
@@ -42,15 +49,28 @@ public class HistoryFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //TODO Test data
-        dataHolder.newGame(new Game(12345, new Player("Louis"), new Player("KC")), new SimpleListener() {
+        //TODO Test data insert
+        Lorem lorem = LoremIpsum.getInstance();
+        dataHolder.newGame(new Game(
+                12345,
+                new Player(lorem.getNameMale()),
+                new Player(lorem.getNameMale()),
+                new Player(lorem.getName()),
+                new Player(lorem.getName()),
+                new Player(lorem.getNameFemale()),
+                new Player(lorem.getNameFemale())
+        ), new SimpleListener() {
             @Override
             public void callback() {                                                                //onSuccess
                 dataHolder.getAllGames(new OnDataReadyListener<List<Game>>() {
                     @Override
                     public void callback(List<Game> games) {
                         gamesRV.setAdapter(new GameHistoryAdapter(getActivity(), games));
-                        gamesRV.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+                        gamesRV.setLayoutManager(layoutManager);
+                        DividerItemDecoration decoration = new DividerItemDecoration(gamesRV.getContext(), layoutManager.getOrientation());
+                        //TODO figure out how to make a 8dp divider instead of the line divider
+                        gamesRV.addItemDecoration(decoration);
                     }
                 });
 
@@ -66,7 +86,7 @@ public class HistoryFragment extends BaseFragment {
                     }
                 });
             }
-        }, null);                                                                                   //onfailure is now null
+        }, null);                                                                                   //onFailure is null
     }
 
     @Override

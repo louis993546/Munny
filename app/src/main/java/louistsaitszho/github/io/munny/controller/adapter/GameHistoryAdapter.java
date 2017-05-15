@@ -1,4 +1,4 @@
-package louistsaitszho.github.io.munny.controller;
+package louistsaitszho.github.io.munny.controller.adapter;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
@@ -24,6 +24,11 @@ public class GameHistoryAdapter extends RecyclerView.Adapter<GameHistoryAdapter.
     Context context;
     List<Game> games;
 
+    /**
+     *
+     * @param context
+     * @param games
+     */
     public GameHistoryAdapter(Context context, List<Game> games) {
         this.context = context;
         this.games = games;
